@@ -1,0 +1,22 @@
+@import "tailwindcss";
+@import "../globals.css";
+
+
+@layer components {
+  .main-container {
+    @apply bg-primary min-h-screen min-w-full p-8 flex justify-center items-center gap-8
+  }
+
+  .side-panes {
+    @apply w-full h-[calc(100vh-64px)];
+
+    &:has(:nth-child(n+2)) {
+      @apply flex flex-col justify-center items-center gap-8
+    }
+  }
+
+  .pane, .react-terminal-wrapper {
+    @apply rounded-lg w-full h-full bg-background;
+    border-radius: 16px !important;
+  }
+}

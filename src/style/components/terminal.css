@@ -1,0 +1,16 @@
+@import '../globals.css';
+
+
+@layer components {
+  .terminal-prompt {
+    @apply text-secondary;
+
+    .terminal-dollar {
+      @apply text-yellow-400
+    }
+  }
+
+  .terminal-line {
+    @apply text-primary-foreground
+  }
+}
