@@ -1,15 +1,17 @@
-import { createContext, JSX, useContext, useState } from 'react'
+import { JSX, useState } from 'react'
 import '@/style/components/terminal.css'
+import { ls } from '@/lib/commands/ls'
+import { cd } from '@/lib/commands/cd'
 
 const prompt = "amr@portfolio"
-interface FSObject {
+export interface FSObject {
   [key: string]: FSObject | string
 }
-type FSType = {
+export type FSType = {
   current: string,
   object?: FSObject | string
 }
-const fs: FSType = {
+const fsobject: FSType = {
   current: "~",
   object: {
     "~": {
@@ -23,90 +25,25 @@ const fs: FSType = {
 }
 export default function TerminalPane({ ...props }) {
 
+  const [historyIndex, setHistoryIndex] = useState<number | null>(null)
   const [history, setHistory] = useState<JSX.Element[]>([])
+  const [commandHistory, setCommandHistory] = useState<string[]>([])
   const [input, setInput] = useState('')
-  const [fsobject, _setFs] = useState<FSType>(fs)
+  const [draftInput, setDraftInput] = useState<string>('')
+  const [fs, _setFs] = useState<FSType>(fsobject)
   const setFs = (fstype: FSType) => {
     _setFs(fstype)
   }
-  const cd = (dir: string) => {
-    const dirs = dir.split('/')
-    const object: FSObject | string | undefined = fsobject?.object[fsobject.current]
-    let _object: FSObject | string = fs?.object[dirs[0]]
-    function getObject(dir: string = '') {
-      const dirs = fsobject.current.split('/') + dir
-      for (const dir of dirs) {
-        if (_object) {
-          _object = _object[dir] as string | FSObject
-        }
-      }
-    }
-    if (dir.startsWith('..')) {
-      const __toDirs = dir.split('/').length
-      const _dirs = fs.current.split('/')
-      for (let i = 0; i < __toDirs; i++) {
-        _dirs.pop()
-      }
-      fs.current = _dirs.join('/')
-    } else {
-      const __toDirs = dir.split('/')
-      if (dir.startsWith("./")) {
-        __toDirs.shift()
-      }
-      fs.current += __toDirs.join('/')
-    }
-  }
-
   const help = () => {
     return `
 Commands: amr, ls, 
 `
   }
-  const ls = (dir = '') => {
-    const dirs = dir.split('/')
-    if (fs) {
-      console.log(fs)
-      let _object: FSObject | string = fs.object[dirs[0]]
-      function getObject(dir: string = '') {
-        const dirs = dir.split('/')
-        console.log("-bject", _object)
-        for (const _dir of dirs) {
-          _object = _object[_dir]
-        }
-      }
-      if (dir.startsWith('..')) {
-        const __toDirs = dir.split('/').length
-        const _dirs = fs.current.split('/')
-        for (let i = 0; i < __toDirs; i++) {
-          _dirs.pop()
-        }
-        getObject()
-        return
-      } else if (dir === '.') {
-        getObject()
-        if (typeof _object === 'string') {
-          return _object
-        } else {
-          return Object.keys(_object).join('\n')
-        }
-      } else if (dir.startsWith("./")) {
-        const __toDirs = dir.split('/')
-        __toDirs.shift()
-        getObject(__toDirs.join('/'))
-        {
-          return Object.keys(_object).join('\n')
-        }
-      } else {
-        getObject()
-        return Object.keys(_object).join('\n')
-      }
-    }
-    return 's'
-  }
 
   const handleCommand = (cmd: string) => {
     const [command, ...args] = cmd.split(' ')
-    const newHistory = [...history, <TerminalLine>{cmd}</TerminalLine>]
+    const newHistory = [...history, <TerminalLine current={fs.current}>
+      <span className='terminal-dollar text-orange-400 flex-shrink'>$</span>&nbsp;{cmd}</TerminalLine>]
     let output = ''
     switch (command) {
       case 'help':
@@ -114,53 +51,97 @@ Commands: amr, ls,
         break
       case 'cd':
         if (args) {
-          cd(args[0])
+          const { newPath: current, error } = cd(fs, args[0])
+          if (error) {
+            output = error
+          } else if (current) {
+            setFs({ ...fs, current })
+          }
         }
         break
       case 'ls':
-        if (args) {
-          output = ls(args[0])
-        }
+        output = ls(fs, args)
         break
+      case 'clear':
+        setHistory([])
+        return
     }
-    if (cmd === 'help') output = 'Commands: help, about, clear'
-    else if (cmd === 'clear') return setHistory([])
-    else if (cmd === 'about') output = 'I’m Amr – terminal UI enjoyer.'
-    else output = `Unknown command: ${cmd}`
-
-    setHistory([...newHistory, <TerminalLine noPrompt>{output}</TerminalLine>])
+    setHistory([...newHistory, <TerminalLine current={fs.current} noPrompt>{output}</TerminalLine>])
+    setHistoryIndex(null)
   }
-
   const handleKeyDown = (e: React.KeyboardEvent) => {
+
     if (e.key === 'Enter') {
       handleCommand(input.trim())
       setInput('')
+    }
+    if (e.key === 'ArrowUp') {
+      e.preventDefault()
+      if (commandHistory.length === 0) return
+      setHistoryIndex(prev => {
+        if (prev === null) setDraftInput(input)
+        const index = prev === null ? commandHistory.length - 1 : Math.max(0, prev - 1)
+        setInput(commandHistory[index])
+        return index
+      })
+    }
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault()
+      if (commandHistory.length === 0) return
+      setHistoryIndex(prev => {
+        if (prev === null) return null
+        const index = prev + 1
+        if (index >= commandHistory.length) {
+          setInput(draftInput)
+          return null
+        } else {
+          setInput(commandHistory[index])
+          return index
+        }
+      })
+    }
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      const trimmed = input.trim()
+      if (!trimmed) return
+
+      // Process output (e.g., via runCommand)
+      handleCommand(trimmed)
+
+      setCommandHistory(prev => [...prev, trimmed])
+      setInput('')
+      setHistoryIndex(null)
+      setDraftInput('')
     }
   }
 
   return (
     <div className="pane bg-[#0f111a] font-mono p-4 overflow-y-scroll border border-[#3f475f] rounded-lg">
       {history.map((line, i) => (
-        <div key={i}>{line}</div>
+        <div className='flex' key={i}>{line}</div>
       ))}
-      <div className="flex">
-        <TerminalLine />
-        <input
-          className="bg-transparent outline-none text-white flex-1"
-          value={input}
-          onChange={e => setInput(e.target.value)}
-          onKeyDown={handleKeyDown}
-          autoFocus
-        />
+      <div className="w-full flex flex-wrap">
+        <TerminalLine current={fs.current} />
+        <div className="terminal-input">
+          <span className='terminal-dollar'>$</span>
+          <input
+            className="bg-transparent outline-none text-white flex-1 text-sm"
+            value={input}
+            onChange={e => setInput(e.target.value)}
+            onKeyDown={handleKeyDown}
+            autoFocus
+          />
+        </div>
       </div>
     </div>
   )
 }
 
-function TerminalLine({ noPrompt = false, children = '' }: { noPrompt?: boolean, children?: React.ReactNode }) {
+function TerminalLine({ noPrompt = false, current, children = '' }: { noPrompt?: boolean, current: string, children?: React.ReactNode }) {
   return <div className='terminal-line'>
     {!noPrompt &&
-      <><span className='terminal-prompt'>{prompt} <span className='terminal-dollar'>$</span></span>&nbsp;</>}
+      <><span className='terminal-prompt'>{prompt} <span className='terminal-path'>{current}</span></span>&nbsp;</>}
     {children}
   </div>
 }

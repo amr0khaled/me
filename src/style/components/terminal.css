@@ -3,14 +3,22 @@
 
 @layer components {
   .terminal-prompt {
-    @apply text-secondary;
+    @apply text-gray-500 break-words flex-shrink;
+
+    .terminal-path {
+      @apply text-green-400
+    }
+  }
+
+  .terminal-input {
+    @apply inline-flex items-center whitespace-nowrap;
 
     .terminal-dollar {
-      @apply text-yellow-400
+      @apply text-orange-400 mr-2 text-sm
     }
   }
 
   .terminal-line {
-    @apply text-primary-foreground
+    @apply text-primary-foreground text-sm;
   }
 }
