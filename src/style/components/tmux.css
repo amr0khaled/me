@@ -1,0 +1,33 @@
+@import "../globals.css";
+
+
+@layer components {
+  .tmux {
+    @apply w-full;
+
+    .tmux-session {
+      @apply h-8/9;
+
+      .pane {
+        border-bottom-right-radius: 0 !important;
+        border-bottom-left-radius: 0 !important;
+      }
+    }
+
+    .tmux-footer {
+      @apply rounded-b-xl border-b border-x h-1/9 flex justify-start gap-2 items-center px-3 text-sm bg-primary border-[#3f475f];
+
+      .session {
+        @apply flex justify-between gap-1 bg-gray-700/50 pr-1 text-primary-foreground;
+
+        .session-index {
+          @apply bg-blue-400 px-1 text-foreground
+        }
+
+        &.active .session-index {
+          @apply bg-green-400
+        }
+      }
+    }
+  }
+}

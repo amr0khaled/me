@@ -25,7 +25,7 @@ const fsobject: FSType = {
 }
 export default function TerminalPane({ ...props }) {
 
-  const [historyIndex, setHistoryIndex] = useState<number | null>(null)
+  const [, setHistoryIndex] = useState<number | null>(null)
   const [history, setHistory] = useState<JSX.Element[]>([])
   const [commandHistory, setCommandHistory] = useState<string[]>([])
   const [input, setInput] = useState('')
@@ -129,7 +129,7 @@ Commands: amr, ls,
             className="bg-transparent outline-none text-white flex-1 text-sm"
             value={input}
             onChange={e => setInput(e.target.value)}
-            onKeyDown={handleKeyDown}
+            onKeyDownCapture={handleKeyDown}
             autoFocus
           />
         </div>
