@@ -1,0 +1,10 @@
+@import '../globals.css';
+
+
+@layer components {
+  .mouse-pointer {
+    @apply size-16 rounded-full backdrop-invert-[35%];
+    @apply transition-all duration-700 ease-out;
+    @apply flex place-items-center text-sm text-background;
+  }
+}
