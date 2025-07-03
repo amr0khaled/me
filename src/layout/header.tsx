@@ -64,7 +64,7 @@ export default function Header() {
           !isMobile
             ? (
               <NavigationMenu className='navbar'>
-                {navBarContent.map((e, i) => <NavigationMenuLink href={e.href} className='navbar-item' key={i}>{e.child}</NavigationMenuLink>
+                {navBarContent.map((e, i) => <NavigationMenuLink href={e.href} className='navbar-item text-base' key={i}>{e.child}</NavigationMenuLink>
                 )}
                 <NavigationMenuItem asChild>
                   <Button variant="outline" size='icon' className='theme-changer' onClick={() => setTheme(e => e === 'dark' ? 'light' : "dark")}>
