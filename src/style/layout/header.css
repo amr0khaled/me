@@ -9,11 +9,15 @@
 
       .navbar {
         @apply flex items-center justify-between gap-3;
+
+        .navbar-item {
+          @apply font-[Quicksand];
+        }
       }
     }
 
-    .logo {
-      @apply text-xl;
+    .title {
+      @apply flex justify-between items-center gap-4 font-[Playfair_Display] font-bold text-2xl;
     }
   }
 }

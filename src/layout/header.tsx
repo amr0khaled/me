@@ -54,11 +54,8 @@ export default function Header() {
   return (
     <header className='header'>
       <nav className='header-container'>
-        <div className='flex justify-between items-center gap-4'>
-          {/*<img src={`${import.meta.env.PROD ? `.${logo}` : logo.slice(1)}`} className='size-10' />*/}
-          <span className='logo font-[Playfair_Display] font-bold text-2xl'>
-            Amr Khaled
-          </span>
+        <div className='title'>
+          Web Developer
         </div>
         {
           !isMobile
