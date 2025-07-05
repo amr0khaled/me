@@ -1,0 +1,12 @@
+@import "../globals.css";
+
+
+@layer components {
+  .contact-section {
+    @apply flex flex-col justify-center items-start my-12 mx-24 bg-foreground text-background pt-12 pl-10 font-[JetBrains_MonoNerd] font-extrabold rounded-4xl;
+
+    h1 {
+      @apply text-5xl text-gray-300 mb-12
+    }
+  }
+}

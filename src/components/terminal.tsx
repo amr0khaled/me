@@ -2,6 +2,7 @@ import { JSX, useState } from 'react'
 import '@/style/components/terminal.css'
 import { ls } from '@/lib/commands/ls'
 import { cd } from '@/lib/commands/cd'
+import { cn } from '@/lib/utils'
 
 const prompt = "amr@portfolio"
 export interface FSObject {
@@ -23,7 +24,7 @@ const fsobject: FSType = {
     }
   }
 }
-export default function TerminalPane({ ...props }) {
+export default function TerminalPane({ className, ...props }: { className?: string }) {
 
   const [, setHistoryIndex] = useState<number | null>(null)
   const [history, setHistory] = useState<JSX.Element[]>([])
@@ -117,7 +118,7 @@ Commands: amr, ls,
   }
 
   return (
-    <div className="pane bg-[#0f111a] font-mono p-4 overflow-y-scroll border border-[#3f475f] rounded-lg">
+    <div className={cn("pane bg-[#0f111a] font-mono p-4 overflow-y-scroll border border-[#3f475f] rounded-lg", className)} {...props}>
       {history.map((line, i) => (
         <div className='flex' key={i}>{line}</div>
       ))}
