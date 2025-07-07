@@ -1,0 +1,45 @@
+@import '../globals.css';
+
+@layer components {
+  .projects-section {
+    @apply min-w-full h-[102lvh] flex flex-col justify-center bg-foreground text-background pt-12;
+
+    .divider,
+    .divider-vertical {
+      @apply w-full h-px bg-gray-300/40;
+    }
+
+    .divider-vertical {
+      @apply w-px h-full
+    }
+
+    .title {
+      @apply text-5xl text-gray-300 my-6 font-[JetBrains_MonoNerd] font-extrabold ml-20;
+    }
+
+    .body {
+      @apply flex justify-between items-center h-full w-full;
+
+      .description-section,
+      .image-section {
+        @apply w-1/2 h-full;
+      }
+
+      .description-section {
+        @apply py-12 px-8;
+
+        .description {
+          @apply text-gray-200 text-2xl font-[JetBrains_MonoNerd] font-medium;
+        }
+      }
+
+      .image-section {
+        @apply px-24 py-7;
+
+        .image-frame {
+          @apply w-full h-full flex border-2 rounded-4xl border-gray-200;
+        }
+      }
+    }
+  }
+}
