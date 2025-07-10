@@ -17,7 +17,7 @@
     }
 
     .title {
-      @apply flex justify-between items-center gap-4 font-[Playfair_Display] font-bold text-2xl m-0;
+      @apply not-dark:text-foreground flex justify-between items-center gap-4 font-[Playfair_Display] font-bold text-2xl m-0;
     }
   }
 }

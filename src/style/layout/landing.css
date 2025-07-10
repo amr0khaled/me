@@ -1,0 +1,40 @@
+@import '../globals.css';
+
+@layer components {
+  .landing {
+    @apply min-h-[90vh] w-full relative;
+
+    .img-container {
+      @apply w-fit h-fit absolute;
+      padding-bottom: 0px !important;
+
+      &>* {
+        @apply border border-[#363636];
+      }
+
+      &:first-of-type {
+        @apply top-10 left-36;
+      }
+
+      &:last-of-type {
+        @apply bottom-20 right-36;
+      }
+
+      .shadow-box {
+        @apply absolute top-0 left-0 border-none bg-[#dadada] translate-2;
+
+        &:last-of-type {
+          @apply -translate-x-2;
+        }
+      }
+    }
+
+    .name {
+      @apply font-[Playfair_Display] font-semibold text-[160px] absolute top-12 right-20;
+    }
+
+    .paragraph {
+      @apply text-2xl font-medium font-[Quicksand] absolute bottom-56 left-20
+    }
+  }
+}
