@@ -1,21 +1,11 @@
 @import '../globals.css';
+@import '../components/divider.css';
+@import '../components/section.css';
+@import '../components/section-title.css';
 
 @layer components {
   .projects-section {
-    @apply min-w-full h-[102lvh] flex flex-col justify-center bg-foreground dark:bg-background dark:text-foreground text-background pt-12;
-
-    .divider,
-    .divider-vertical {
-      @apply w-full h-px bg-gray-300/40;
-    }
-
-    .divider-vertical {
-      @apply w-px h-full
-    }
-
-    .title {
-      @apply text-5xl text-gray-300 my-6 font-[JetBrains_MonoNerd] font-extrabold ml-20;
-    }
+    @apply min-w-full h-[100lvh] flex flex-col justify-center bg-foreground dark:bg-background dark:text-foreground text-background pt-12;
 
     .body {
       @apply flex justify-between items-center h-full w-full;

@@ -14,7 +14,7 @@ export default function Projects() {
     description: 'description'
   });
   const [projects, setProjects] = useState<Project[]>([])
-  return <section className='projects-section'>
+  return <section className='projects-section section'>
     <header>
       <div className='divider'></div>
       <h1 className='title'>~/Projects/{project.title}</h1>

@@ -1,0 +1,8 @@
+@import '../globals.css';
+
+
+@layer components {
+  .title {
+    @apply text-5xl text-gray-300 my-6 font-[JetBrains_MonoNerd] font-extrabold ml-20;
+  }
+}
