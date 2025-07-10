@@ -6,7 +6,6 @@ import { FaRegSun, FaRegMoon } from 'react-icons/fa'
 import { IoMdMenu } from 'react-icons/io'
 import { useIsMobile } from '@/hooks/is-mobile'
 import '@/style/layout/header.css'
-import '@/style/components/divider.css'
 
 
 export default function Header() {
@@ -53,31 +52,18 @@ export default function Header() {
     setWidth(window.innerWidth)
   }, [currentWidth])
   return (
-    <>
-      <header className='header'>
-        <nav className='header-container'>
-          <div className='title'>
-            Web Developer
-          </div>
-          {
-            !isMobile
-              ? (
-                <NavigationMenu className='navbar'>
-                  {navBarContent.map((e, i) => <NavigationMenuLink href={e.href} className='navbar-item text-base' key={i}>{e.child}</NavigationMenuLink>
-                  )}
-                  <NavigationMenuItem asChild>
-                    <Button variant="outline" size='icon' className='theme-changer' onClick={() => setTheme(e => e === 'dark' ? 'light' : "dark")}>
-                      {
-                        theme === 'dark'
-                          ? <FaRegSun />
-                          : <FaRegMoon />
-                      }
-                    </Button>
-                  </NavigationMenuItem>
-                </NavigationMenu>
-              )
-              : (
-                <div className='flex gap-x-3'>
+    <header className='header'>
+      <nav className='header-container'>
+        <div className='title'>
+          Web Developer
+        </div>
+        {
+          !isMobile
+            ? (
+              <NavigationMenu className='navbar'>
+                {navBarContent.map((e, i) => <NavigationMenuLink href={e.href} className='navbar-item text-base' key={i}>{e.child}</NavigationMenuLink>
+                )}
+                <NavigationMenuItem asChild>
                   <Button variant="outline" size='icon' className='theme-changer' onClick={() => setTheme(e => e === 'dark' ? 'light' : "dark")}>
                     {
                       theme === 'dark'
@@ -85,27 +71,37 @@ export default function Header() {
                         : <FaRegMoon />
                     }
                   </Button>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant='outline' size={'icon'} className='p-0'>
-                        <IoMdMenu className='size-[24px]' />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent className='dropdown-menu'>
-                      {navBarContent.map((e, i) =>
-                        <DropdownMenuItem key={i}>
-                          {e.child}
-                        </DropdownMenuItem>
-                      )}
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
-              )
-          }
-        </nav>
-      </header>
-      <div className='divider'></div>
-    </>
+                </NavigationMenuItem>
+              </NavigationMenu>
+            )
+            : (
+              <div className='flex gap-x-3'>
+                <Button variant="outline" size='icon' className='theme-changer' onClick={() => setTheme(e => e === 'dark' ? 'light' : "dark")}>
+                  {
+                    theme === 'dark'
+                      ? <FaRegSun />
+                      : <FaRegMoon />
+                  }
+                </Button>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant='outline' size={'icon'} className='p-0'>
+                      <IoMdMenu className='size-[24px]' />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className='dropdown-menu'>
+                    {navBarContent.map((e, i) =>
+                      <DropdownMenuItem key={i}>
+                        {e.child}
+                      </DropdownMenuItem>
+                    )}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+            )
+        }
+      </nav>
+    </header>
   )
 
 }
