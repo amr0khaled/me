@@ -3,10 +3,14 @@
 
 @layer components {
   .contact-section {
-    @apply flex flex-col justify-center items-start my-12 mx-24 bg-foreground text-background pt-12 pl-10 font-[JetBrains_MonoNerd] font-extrabold rounded-4xl;
+    @apply flex flex-col justify-center items-start py-12 px-24 bg-background text-foreground;
 
-    h1 {
-      @apply text-5xl text-gray-300 mb-12
+    .contact-container {
+      @apply w-full flex flex-col justify-center items-start bg-foreground text-background pt-12 pl-10 font-[JetBrains_MonoNerd] font-extrabold rounded-4xl;
+
+      h1 {
+        @apply text-5xl text-gray-300 mb-12
+      }
     }
   }
 }

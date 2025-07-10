@@ -2,7 +2,7 @@
 
 @layer components {
   .projects-section {
-    @apply min-w-full h-[102lvh] flex flex-col justify-center bg-foreground text-background pt-12;
+    @apply min-w-full h-[102lvh] flex flex-col justify-center bg-foreground dark:bg-background dark:text-foreground text-background pt-12;
 
     .divider,
     .divider-vertical {
