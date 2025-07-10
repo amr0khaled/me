@@ -6,6 +6,7 @@ import { FaRegSun, FaRegMoon } from 'react-icons/fa'
 import { IoMdMenu } from 'react-icons/io'
 import { useIsMobile } from '@/hooks/is-mobile'
 import '@/style/layout/header.css'
+import '@/style/components/divider.css'
 
 
 export default function Header() {
@@ -101,6 +102,7 @@ export default function Header() {
             )
         }
       </nav>
+      <div className='divider'></div>
     </header>
   )
 
