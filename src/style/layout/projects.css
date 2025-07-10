@@ -1,0 +1,35 @@
+@import '../globals.css';
+@import '../components/divider.css';
+@import '../components/section.css';
+@import '../components/section-title.css';
+
+@layer components {
+  .projects-section {
+    @apply min-w-full h-[100lvh] flex flex-col justify-center bg-foreground dark:bg-background dark:text-foreground text-background pt-12;
+
+    .body {
+      @apply flex justify-between items-center h-full w-full;
+
+      .description-section,
+      .image-section {
+        @apply w-1/2 h-full;
+      }
+
+      .description-section {
+        @apply py-12 px-8;
+
+        .description {
+          @apply text-gray-200 text-2xl font-[JetBrains_MonoNerd] font-medium;
+        }
+      }
+
+      .image-section {
+        @apply px-24 py-7;
+
+        .image-frame {
+          @apply w-full h-full flex border-2 rounded-4xl border-gray-200;
+        }
+      }
+    }
+  }
+}

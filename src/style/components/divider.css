@@ -1,0 +1,13 @@
+@import '../globals.css';
+
+@layer components {
+
+  .divider,
+  .divider-vertical {
+    @apply w-full h-px bg-gray-300/40;
+  }
+
+  .divider-vertical {
+    @apply w-px h-full
+  }
+}

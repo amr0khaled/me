@@ -1,0 +1,48 @@
+@import '../globals.css';
+@import '../components/divider.css';
+@import '../components/section.css';
+@import '../components/section-title.css';
+
+@layer components {
+  .skills-section {
+    @apply min-w-full h-[100lvh] flex flex-col justify-start items-center pt-12 font-[JetBrains_MonoNerd] not-dark:text-background not-dark:bg-foreground;
+
+    .skills-header {
+      @apply w-full;
+    }
+
+    .skills-container {
+      @apply flex justify-between items-center h-full w-full;
+    }
+
+    .skills-desc-container,
+    .skills-group {
+      @apply flex flex-1/2 items-center justify-center px-10 py-14;
+    }
+
+    .skills-desc-container {
+      @apply justify-start items-start h-full;
+
+      .skills-desc {
+        @apply text-2xl font-extrabold
+      }
+    }
+
+    .skills-group {
+      @apply flex flex-col items-start justify-between;
+
+      .skill-item {
+        @apply flex justify-center items-end;
+
+        .skill-order,
+        .skill-content {
+          @apply font-extrabold text-6xl text-[#323232];
+        }
+
+        .skill-content {
+          @apply text-3xl dark:text-foreground text-background;
+        }
+      }
+    }
+  }
+}

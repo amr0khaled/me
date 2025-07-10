@@ -9,3 +9,31 @@
   font-variation-settings: 'wght' 400 900;
   font-style: normal;
 }
+
+@font-face {
+  font-family: "JetBrains MonoNerd";
+  src: url(../assets/fonts/JetBrainsMonoNerdFont-ExtraBold.ttf) format('truetype');
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "JetBrains MonoNerd";
+  src: url(../assets/fonts/JetBrainsMonoNerdFont-Medium.ttf) format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  src: url(../assets/fonts/JetBrainsMonoNerdFont-Light.ttf) format('truetype');
+  font-family: "JetBrains MonoNerd";
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Quicksand";
+  src: url(../assets/fonts/Quicksand-Regular.ttf) format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
